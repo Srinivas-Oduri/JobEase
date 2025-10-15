@@ -1,0 +1,89 @@
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  // Data from initial questions (not in resume)
+  additionalQuestions: {
+    type: mongoose.Schema.Types.Mixed,
+  },
+  // Parsed data from resume
+  resumeData: {
+    personalInfo: {
+      name: String,
+      email: String,
+      phone: String,
+      linkedin: String,
+      github: String,
+      portfolio: String,
+      address: String,
+    },
+    summary: String,
+    skills: [String],
+    experience: [{
+      title: String,
+      company: String,
+      duration: String,
+      description: String,
+    }],
+    education: [{
+      degree: String,
+      institution: String,
+      year: String,
+    }],
+    projects: [{
+      title: String,
+      description: String,
+      technologies: [String],
+      link: String,
+    }],
+    awards: [{
+      name: String,
+      date: String,
+      issuer: String,
+    }],
+    certifications: [{
+      name: String,
+      date: String,
+      issuer: String,
+    }],
+    languages: [String],
+    // Add any other relevant fields parsed from resume
+  },
+  // Stored resume file path or reference
+  resumeFile: {
+    type: String,
+  },
+  // User's domain interests for job scraping
+  domainInterests: [String],
+  // Job application status (dashboard)
+  applications: [{
+    jobTitle: String,
+    company: String,
+    applicationDate: {
+      type: Date,
+      default: Date.now,
+    },
+    status: {
+      type: String,
+      enum: ['success', 'issue', 'pending'],
+      default: 'pending',
+    },
+    jobLink: String,
+    issueDetails: String, // Details if status is 'issue'
+  }],
+}, { timestamps: true });
+
+module.exports = mongoose.model('User', userSchema, 'autoapply');

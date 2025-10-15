@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "langchain": "^0.3.36",
+    "pdf-parse": "^2.3.11",
+    "puppeteer": "^24.24.1"
+  }
+}
