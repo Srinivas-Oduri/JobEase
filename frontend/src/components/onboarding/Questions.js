@@ -5,7 +5,7 @@ import axios from 'axios';
 const Questions = () => {
   const [questions, setQuestions] = useState({
     'Are you legally authorized to work in this country': '',
-    'Will you now or in the future require sponsorship for employment (e.g., H-1B)': '', // Removed period
+    'Will you now or in the future require sponsorship for employment (e.g., H-1B)': '',
     'What is your desired start date': '',
     'Are you willing to relocate': '',
     'What are your salary expectations for this role': '',
@@ -13,10 +13,21 @@ const Questions = () => {
     'How did you hear about this job opening': '',
   });
 
+  const [additionalFields, setAdditionalFields] = useState({
+    linkedin: '',
+    github: '',
+    experienceInYears: '',
+    codingPlatformLink: '',
+  });
+
   const navigate = useNavigate();
 
   const onChange = e => {
     setQuestions({ ...questions, [e.target.name]: e.target.value });
+  };
+
+  const onAdditionalFieldChange = e => {
+    setAdditionalFields({ ...additionalFields, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async e => {
@@ -36,13 +47,13 @@ const Questions = () => {
         }
       };
 
-      const additionalQuestions = new Map();
-      for (const key in questions) {
-        additionalQuestions.set(key, questions[key]);
-      }
+      const combinedAdditionalQuestions = {
+        ...questions,
+        ...additionalFields,
+      };
 
       const body = JSON.stringify({
-        additionalQuestions: Object.fromEntries(additionalQuestions),
+        additionalQuestions: combinedAdditionalQuestions,
         // domainInterests will now be inferred from resume or other means
       });
 
@@ -72,6 +83,48 @@ const Questions = () => {
             />
           </div>
         ))}
+
+        <div className="form-group">
+          <label>LinkedIn Profile URL</label>
+          <input
+            type="text"
+            placeholder="LinkedIn Profile URL"
+            name="linkedin"
+            value={additionalFields.linkedin}
+            onChange={onAdditionalFieldChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>GitHub Profile URL</label>
+          <input
+            type="text"
+            placeholder="GitHub Profile URL"
+            name="github"
+            value={additionalFields.github}
+            onChange={onAdditionalFieldChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Years of Experience</label>
+          <input
+            type="number"
+            placeholder="Years of Experience"
+            name="experienceInYears"
+            value={additionalFields.experienceInYears}
+            onChange={onAdditionalFieldChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Coding Platform Link (e.g., LeetCode, HackerRank)</label>
+          <input
+            type="text"
+            placeholder="Coding Platform Link"
+            name="codingPlatformLink"
+            value={additionalFields.codingPlatformLink}
+            onChange={onAdditionalFieldChange}
+          />
+        </div>
+
         <input type="submit" className="btn btn-primary" value="Next" />
       </form>
     </div>

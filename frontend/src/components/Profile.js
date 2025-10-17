@@ -49,7 +49,7 @@ const Profile = () => {
         {user.additionalQuestions && Object.keys(user.additionalQuestions).length > 0 ? (
           <ul>
             {Object.entries(user.additionalQuestions).map(([question, answer]) => (
-              <li key={question}><strong>{question}:</strong> {answer}</li>
+              <li key={question}><strong>{question}:</strong> {typeof answer === 'object' ? JSON.stringify(answer) : answer}</li>
             ))}
           </ul>
         ) : (

@@ -17,7 +17,17 @@ const userSchema = new mongoose.Schema({
   },
   // Data from initial questions (not in resume)
   additionalQuestions: {
-    type: mongoose.Schema.Types.Mixed,
+    'Are you legally authorized to work in this country': String,
+    'Will you now or in the future require sponsorship for employment (e.g., H-1B)': String,
+    'What is your desired start date': String,
+    'Are you willing to relocate': String,
+    'What are your salary expectations for this role': String,
+    'Why are you interested in this position': String,
+    'How did you hear about this job opening': String,
+    linkedin: String,
+    github: String,
+    experienceInYears: Number,
+    codingPlatformLink: String,
   },
   // Parsed data from resume
   resumeData: {
@@ -25,8 +35,6 @@ const userSchema = new mongoose.Schema({
       name: String,
       email: String,
       phone: String,
-      linkedin: String,
-      github: String,
       portfolio: String,
       address: String,
     },
@@ -49,7 +57,7 @@ const userSchema = new mongoose.Schema({
       technologies: [String],
       link: String,
     }],
-    awards: [{
+    achievements: [{ // Renamed from awards
       name: String,
       date: String,
       issuer: String,
