@@ -5,6 +5,15 @@
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+
+  /* AI Agent Theme Colors */
+  --ai-bg-dark: #1a1a2e;
+  --ai-bg-medium: #16213e;
+  --ai-bg-light: #0f3460;
+  --ai-text-light: #e0e0e0;
+  --ai-text-accent: #e94560;
+  --ai-border-color: #533483;
+  --ai-shadow-color: rgba(233, 69, 96, 0.3);
 }
 
 * {
@@ -177,4 +186,129 @@ img {
 
 .table tbody tr:hover {
   background-color: #f5f5f5;
+}
+
+/* Profile Page - AI Agent Theme */
+.profile-container.ai-theme {
+  background-color: var(--ai-bg-dark);
+  color: var(--ai-text-light);
+  padding: 2rem;
+  min-height: 100vh;
+  font-family: 'Roboto Mono', monospace; /* A more techy font */
+}
+
+.profile-container.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--ai-text-accent);
+}
+
+.profile-header {
+  font-size: 3rem;
+  color: var(--ai-text-accent);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px var(--ai-shadow-color);
+}
+
+.profile-welcome {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--ai-text-light);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Resume data wider, questions/contact narrower */
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-section {
+  background-color: var(--ai-bg-medium);
+  border: 1px solid var(--ai-border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px var(--ai-shadow-color);
+  transition: transform 0.3s ease-in-out;
+}
+
+.profile-section:hover {
+  transform: translateY(-5px);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: var(--ai-text-accent);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--ai-border-color);
+  padding-bottom: 0.5rem;
+}
+
+.section-content .data-item {
+  margin-bottom: 0.8rem;
+  line-height: 1.8;
+}
+
+.data-list {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+}
+
+.data-list li {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.data-list li::before {
+  content: '>';
+  color: var(--ai-text-accent);
+  position: absolute;
+  left: -1.2rem;
+}
+
+.no-data-message {
+  font-style: italic;
+  color: #aaa;
+}
+
+.action-link, .view-resume-link {
+  color: var(--ai-text-accent);
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.action-link:hover, .view-resume-link:hover {
+  color: #ff7b9c;
+}
+
+/* Specific section adjustments */
+.resume-data-section {
+  grid-column: 1 / 2; /* Takes the first column */
+}
+
+.questions-section {
+  grid-column: 2 / 3; /* Takes the second column */
+}
+
+.contact-info-section,
+.domain-interests-section {
+  grid-column: 2 / 3; /* Also takes the second column, stacking below questions */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .profile-grid {
+    grid-template-columns: 1fr; /* Single column layout on smaller screens */
+  }
+  .resume-data-section,
+  .questions-section,
+  .contact-info-section,
+  .domain-interests-section {
+    grid-column: 1 / -1; /* All sections span full width */
+  }
 }
