@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './ResumeUpload.css'; // Import the new CSS file
 
 const ResumeUpload = () => {
+  useEffect(() => {
+    document.body.classList.add('no-scroll');
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
 
@@ -41,15 +48,19 @@ const ResumeUpload = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="large text-primary">Upload Your Resume</h1>
-      <p className="lead">Upload your resume to automatically extract and segregate your professional data.</p>
-      <div className="form-group">
-        <input type="file" onChange={onFileChange} />
+    <div className="auth-page">
+      <div className="auth-overlay">
+        <div className="auth-form-container">
+          <h1 className="large">Upload Your Resume</h1>
+          <p className="lead">Upload your resume to automatically extract and segregate your professional data.</p>
+          <div className="form-group">
+            <input type="file" onChange={onFileChange} />
+          </div>
+          <button className="btn btn-primary" onClick={onFileUpload}>
+            Upload & Finish Onboarding
+          </button>
+        </div>
       </div>
-      <button className="btn btn-primary" onClick={onFileUpload}>
-        Upload & Finish Onboarding
-      </button>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard';
 import Header from './components/Header'; // Import the new Header component
 
 import './App.css';
+import './components/Landing.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

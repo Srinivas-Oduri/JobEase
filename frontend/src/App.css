@@ -30,6 +30,10 @@ body {
   color: #333;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 a {
   color: var(--primary-color);
   text-decoration: none;
@@ -134,32 +138,7 @@ img {
 }
 
 /* Landing Page */
-.landing {
-  position: relative;
-  background: url('./logo.svg') no-repeat center center/cover; /* Placeholder image */
-  height: 100vh;
-}
-
-.landing-inner {
-  color: #fff;
-  height: 100%;
-  width: 80%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+/* The landing page styles are now in Landing.css */
 
 /* Dashboard */
 .dashboard-actions {

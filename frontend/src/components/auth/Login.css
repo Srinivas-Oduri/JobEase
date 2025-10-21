@@ -1,0 +1,154 @@
+.auth-page {
+  position: relative;
+  background: url('../../../../Lets Automate no text.png') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: calc(100vh - 60px); /* Adjust for header height */
+  margin-top: 60px; /* Push down to account for header */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the left */
+  padding-left: 5%; /* Adjust as needed for left alignment */
+  overflow: hidden;
+}
+
+.auth-overlay {
+  background-color: rgba(0, 0, 0, 0.7); /* Darker overlay for better form visibility */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 5%;
+}
+
+.auth-form-container {
+  background-color: rgba(255, 255, 255, 0.15); /* White with transparency */
+  backdrop-filter: blur(12px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.4); /* Lighter, more prominent border */
+  border-radius: 18px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+  max-width: 450px; /* Slightly wider form */
+  width: 90%;
+  color: #f0f0f0; /* Off-white text */
+  animation: slideInLeft 1.2s ease-out; /* Slide-in animation */
+  transition: transform 0.3s ease-in-out;
+}
+
+.auth-form-container:hover {
+  transform: translateY(-8px); /* More noticeable lift on hover */
+}
+
+.auth-form-container .large {
+  font-size: 2.8rem;
+  color: #f0e68c; /* Pale yellow for headings */
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.auth-form-container .lead {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: #e0e0e0;
+}
+
+.auth-form-container .form-group input[type='email'],
+.auth-form-container .form-group input[type='password'] {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-form-container .form-group input[type='email']::placeholder,
+.auth-form-container .form-group input[type='password']::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-form-container .form-group input[type='email']:focus,
+.auth-form-container .form-group input[type='password']:focus {
+  outline: none;
+  border-color: #f0e68c; /* Pale yellow focus border */
+  box-shadow: 0 0 0 3px rgba(240, 230, 140, 0.3);
+}
+
+.auth-form-container .btn {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.auth-form-container .btn-primary {
+  background-color: #f0e68c; /* Pale yellow */
+  color: #333; /* Dark text */
+  border: none;
+  box-shadow: 0 4px 15px rgba(240, 230, 140, 0.4);
+}
+
+.auth-form-container .btn-primary:hover {
+  background-color: #e0d67c; /* Slightly darker pale yellow on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(240, 230, 140, 0.6);
+}
+
+.auth-form-container .my-1 {
+  margin-top: 1.5rem;
+  color: #e0e0e0;
+}
+
+.auth-form-container .my-1 a {
+  color: #ffffff; /* White link */
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.auth-form-container .my-1 a:hover {
+  color: #f0e68c; /* Pale yellow on hover */
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-page, .auth-overlay {
+    justify-content: center; /* Center content on smaller screens */
+    padding-left: 0;
+  }
+
+  .auth-form-container {
+    padding: 2rem;
+    max-width: 90%;
+  }
+
+  .auth-form-container .large {
+    font-size: 2.2rem;
+  }
+
+  .auth-form-container .lead {
+    font-size: 1.1rem;
+  }
+}

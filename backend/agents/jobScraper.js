@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const User = require('../models/User'); // Assuming User model is in ../models/User.js
 const { getModel } = require('./geminiClient'); // Import Gemini client
+const { fillApplicationForm } = require('./formFiller'); // Import formFiller
 
 exports.scrapeJobs = async (userId, jobType, numJobs) => {
   console.log(`Job Scraper: Starting to scrape ${numJobs} ${jobType} jobs for user ${userId}`);
@@ -8,7 +9,7 @@ exports.scrapeJobs = async (userId, jobType, numJobs) => {
   let browser;
   try {
     browser = await puppeteer.launch({
-      headless: true, // Use 'new' for new headless mode, or false for visible browser (for debugging)
+      headless: false, // Temporarily set to false for debugging, to see if it conflicts with Selenium
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -214,14 +215,47 @@ exports.scrapeJobs = async (userId, jobType, numJobs) => {
     // Filter jobs to the requested number
     const finalJobs = filteredJobs.slice(0, numJobs);
     console.log(`Job Scraper: Finished scraping. Found ${finalJobs.length} jobs.`);
-    return finalJobs;
+
+    // Close Puppeteer browser before calling Selenium-based form filler to avoid conflicts
+    if (browser) {
+      await browser.close();
+      console.log('Job Scraper: Closed Puppeteer browser before calling form filler.');
+    }
+
+    const appliedJobs = [];
+    const issues = [];
+
+    for (const job of finalJobs) {
+      console.log(`Job Scraper: Attempting to fill form for job: ${job.title} at ${job.company}`);
+      const jobData = {
+        title: job.title,
+        company: job.company,
+        location: job.location,
+      };
+      const applicationResult = await fillApplicationForm(userId, job.applicationLink, jobData);
+      appliedJobs.push({
+        jobTitle: job.title,
+        company: job.company,
+        jobLink: job.applicationLink,
+        applicationResult: applicationResult,
+      });
+      if (applicationResult && !applicationResult.success) {
+        const errorDetails = applicationResult.issues && applicationResult.issues.length > 0
+          ? applicationResult.issues.join('; ')
+          : 'Unknown error during form filling.';
+        issues.push(`Application for ${job.title} at ${job.company} failed: ${errorDetails}`);
+      } else if (!applicationResult) {
+        issues.push(`Application for ${job.title} at ${job.company} failed: fillApplicationForm returned undefined.`);
+      }
+    }
+
+    return { scrapedJobs: finalJobs, appliedJobs, issues };
 
   } catch (error) {
     console.error(`Error during job scraping for user ${userId}:`, error);
-    return [];
+    return { scrapedJobs: [], appliedJobs: [], issues: [`Error during job scraping: ${error.message}`] };
   } finally {
-    if (browser) {
-      await browser.close();
-    }
+    // The Puppeteer browser is already closed before calling formFiller.
+    // No need to close it again here.
   }
 };

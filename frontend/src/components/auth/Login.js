@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './Login.css'; // Import the new CSS file
 
 const Login = ({ onLoginSuccess }) => {
+  useEffect(() => {
+    document.body.classList.add('no-scroll');
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -39,36 +46,40 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="container">
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead"><i className="fas fa-user"></i> Sign Into Your Account</p>
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={onChange}
-            required
-          />
+    <div className="auth-page">
+      <div className="auth-overlay">
+        <div className="auth-form-container">
+          <h1 className="large">Sign In</h1>
+          <p className="lead"><i className="fas fa-user"></i> Sign Into Your Account</p>
+          <form className="form" onSubmit={onSubmit}>
+            <div className="form-group">
+              <input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={onChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={onChange}
+                minLength="6"
+                required
+              />
+            </div>
+            <input type="submit" className="btn btn-primary" value="Login" />
+          </form>
+          <p className="my-1">
+            Don't have an account? <Link to="/register">Sign Up</Link>
+          </p>
         </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={onChange}
-            minLength="6"
-            required
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
-      </form>
-      <p className="my-1">
-        Don't have an account? <Link to="/register">Sign Up</Link>
-      </p>
+      </div>
     </div>
   );
 };

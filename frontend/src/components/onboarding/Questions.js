@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './Questions.css'; // Import the new CSS file
 
 const Questions = () => {
+  useEffect(() => {
+    document.body.classList.add('no-scroll');
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
   const [questions, setQuestions] = useState({
     'Are you legally authorized to work in this country': '',
     'Will you now or in the future require sponsorship for employment (e.g., H-1B)': '',
@@ -66,67 +73,71 @@ const Questions = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="large text-primary">Additional Application Information</h1>
-      <p className="lead">Please answer a few questions that are commonly asked in job applications and are not typically found in a resume.</p>
-      <form className="form" onSubmit={onSubmit}>
-        {Object.keys(questions).map((question, index) => (
-          <div className="form-group" key={index}>
-            <label>{question}</label>
-            <input
-              type="text"
-              placeholder={question}
-              name={question}
-              value={questions[question]}
-              onChange={onChange}
-              required
-            />
-          </div>
-        ))}
+    <div className="auth-page">
+      <div className="auth-overlay">
+        <div className="auth-form-container">
+          <h1 className="large">Additional Application Information</h1>
+          <p className="lead">Please answer a few questions that are commonly asked in job applications and are not typically found in a resume.</p>
+          <form className="form" onSubmit={onSubmit}>
+            {Object.keys(questions).map((question, index) => (
+              <div className="form-group" key={index}>
+                <label>{question}</label>
+                <input
+                  type="text"
+                  placeholder={question}
+                  name={question}
+                  value={questions[question]}
+                  onChange={onChange}
+                  required
+                />
+              </div>
+            ))}
 
-        <div className="form-group">
-          <label>LinkedIn Profile URL</label>
-          <input
-            type="text"
-            placeholder="LinkedIn Profile URL"
-            name="linkedin"
-            value={additionalFields.linkedin}
-            onChange={onAdditionalFieldChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>GitHub Profile URL</label>
-          <input
-            type="text"
-            placeholder="GitHub Profile URL"
-            name="github"
-            value={additionalFields.github}
-            onChange={onAdditionalFieldChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Years of Experience</label>
-          <input
-            type="number"
-            placeholder="Years of Experience"
-            name="experienceInYears"
-            value={additionalFields.experienceInYears}
-            onChange={onAdditionalFieldChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Coding Platform Link (e.g., LeetCode, HackerRank)</label>
-          <input
-            type="text"
-            placeholder="Coding Platform Link"
-            name="codingPlatformLink"
-            value={additionalFields.codingPlatformLink}
-            onChange={onAdditionalFieldChange}
-          />
-        </div>
+            <div className="form-group">
+              <label>LinkedIn Profile URL</label>
+              <input
+                type="text"
+                placeholder="LinkedIn Profile URL"
+                name="linkedin"
+                value={additionalFields.linkedin}
+                onChange={onAdditionalFieldChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>GitHub Profile URL</label>
+              <input
+                type="text"
+                placeholder="GitHub Profile URL"
+                name="github"
+                value={additionalFields.github}
+                onChange={onAdditionalFieldChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Years of Experience</label>
+              <input
+                type="number"
+                placeholder="Years of Experience"
+                name="experienceInYears"
+                value={additionalFields.experienceInYears}
+                onChange={onAdditionalFieldChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Coding Platform Link (e.g., LeetCode, HackerRank)</label>
+              <input
+                type="text"
+                placeholder="Coding Platform Link"
+                name="codingPlatformLink"
+                value={additionalFields.codingPlatformLink}
+                onChange={onAdditionalFieldChange}
+              />
+            </div>
 
-        <input type="submit" className="btn btn-primary" value="Next" />
-      </form>
+            <input type="submit" className="btn btn-primary" value="Next" />
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

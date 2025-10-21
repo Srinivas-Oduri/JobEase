@@ -8,4 +8,9 @@ const agentController = require('../controllers/agentController'); // We will cr
 // @access  Private
 router.post('/start-application', auth, agentController.startApplicationProcess);
 
+// @route   GET api/agents/applications
+// @desc    Get all job applications for the authenticated user
+// @access  Private
+router.get('/applications', auth, agentController.getJobApplications);
+
 module.exports = router;

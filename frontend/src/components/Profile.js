@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../App.css'; // Ensure App.css is imported for global styles
+import './Profile.css'; // Import the new CSS file
 
 const Profile = () => {
+  useEffect(() => {
+    document.body.classList.remove('no-scroll');
+  }, []);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -39,11 +43,13 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container ai-theme">
-      <h1 className="profile-header">User Profile</h1>
-      <p className="profile-welcome">Welcome, {user.username}!</p>
+    <div className="profile-page">
+      <div className="profile-overlay"></div>
+      <div className="profile-content">
+        <h1 className="profile-header">User Profile</h1>
+        <p className="profile-welcome">Welcome, {user.username}!</p>
 
-      <div className="profile-grid">
+        <div className="profile-grid">
         {/* Personal Information Section */}
         <div className="profile-section personal-info-section">
           <h2 className="section-title">Personal Information</h2>
@@ -219,6 +225,7 @@ const Profile = () => {
           ) : (
             <p className="no-data-message">No domain interests specified. <a href="/onboarding/questions" className="action-link">Update interests</a></p>
           )}
+        </div>
         </div>
       </div>
     </div>
