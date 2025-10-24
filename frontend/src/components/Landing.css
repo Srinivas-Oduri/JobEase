@@ -83,9 +83,6 @@ header {
   backdrop-filter: blur(10px);
 }
 
-.landing-card:hover {
-  transform: translateX(-80px) translateY(-4px);
-}
 
 .landing-card .lead {
   color: #fff;
